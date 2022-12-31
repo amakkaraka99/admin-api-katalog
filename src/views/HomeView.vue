@@ -1,6 +1,7 @@
 <script setup>
 import axios from "axios";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
+import TableHome from "../components/TableHome.vue";
 
 const data = ref([]);
 
@@ -16,6 +17,32 @@ const removeData = async (id) => {
   console.log(response);
   getData();
 };
+const page = ref(1);
+const perPage = ref(5);
+const total = ref(0);
+
+const paginateData = computed(() => {
+  const start = (page.value - 1) * perPage.value;
+  const end = start + perPage.value;
+  return data.value.slice(start, end);
+});
+
+const totalPage = computed(() => {
+  return Math.ceil(data.value.length / perPage.value);
+});
+const nextPage = () => {
+  if (page.value < totalPage.value) {
+    page.value++;
+  }
+};
+const prevPage = () => {
+  if (page.value > 1) {
+    page.value--;
+  }
+};
+const changePage = (item) => {
+  page.value = item;
+};
 </script>
 
 <template>
@@ -26,55 +53,26 @@ const removeData = async (id) => {
           >Create</router-link
         >
         <div class="table-responsive text-center">
-          <table class="table table-bordered table-hover align-middle">
-            <thead class="bg-primary">
-              <tr class="py-3 text-white">
-                <th>Title</th>
-                <th>Price</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Image</th>
-                <th>Rate</th>
-                <th>Count</th>
-                <th>No Hp</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in data" :key="item.id">
-                <td>{{ item.title }}</td>
-                <td>{{ item.price }}</td>
-                <td>{{ item.description }}</td>
-                <td>{{ item.category }}</td>
-                <td>
-                  <img :src="item.image" :alt="item.title" />
-                </td>
-                <td>{{ item.rate }}</td>
-                <td>{{ item.count }}</td>
-                <td>{{ item.nohp }}</td>
-                <td>
-                  <router-link :to="'/edit/' + item.id" class="btn btn-warning"
-                    >Edit</router-link
-                  >
-                  <button
-                    type="button"
-                    class="btn btn-danger"
-                    @click="removeData(item.id)"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <TableHome :data="paginateData" :removeData="removeData" />
+          <div class="text-center">
+            <button @click="prevPage" class="btn btn-outline-warning">
+              &laquo;
+            </button>
+            <button
+              v-for="item in totalPage"
+              :key="item"
+              @click="changePage(item)"
+              class="btn btn-outline-warning"
+            >
+              {{ item }}
+            </button>
+            <button @click="nextPage" class="btn btn-outline-warning">
+              &raquo;
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-<style scoped>
-img {
-  width: 70px;
-  height: 70px;
-}
-</style>
+<style scoped></style>
