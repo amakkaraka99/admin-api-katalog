@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-4 text-center mb-5 align-middle">
-          <h1 class="text-white mb-1 mt-1">hallo</h1>
+          <div class="text-white mb-1 mt-1"></div>
           <p v-if="error" class="alert alert-danger">{{ error }}</p>
           <div class="card mt-5 p-3 rounded shadow" id="tengah">
             <form @submit.prevent="login">
@@ -45,7 +45,7 @@
               <button class="w-100 btn btn-lg btn-primary" type="submit">
                 Sign in
               </button>
-              <p class="mt-5 mb-3 text-muted">&copy; 2021–2022</p>
+              <p class="mt-5 text-muted">&copy; 2021–2022</p>
             </form>
           </div>
         </div>
@@ -69,8 +69,4 @@ const login = () => {
   router.push("/");
 };
 </script>
-<style>
-#tengah {
-  margin-top: 100px;
-}
-</style>
+<style></style>

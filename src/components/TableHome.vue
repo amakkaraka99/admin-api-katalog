@@ -26,15 +26,20 @@
         <td>{{ item.count }}</td>
         <td>{{ item.nohp }}</td>
         <td>
-          <router-link :to="'/edit/' + item.id" class="btn btn-warning"
-            >Edit</router-link
-          >
-          <button
-            type="button"
-            class="btn btn-danger"
-            @click="removeData(item.id)"
-          >
-            Delete
+          <button class="btn">
+            <span>
+              <i class="bi bi-eye"></i>
+            </span>
+          </button>
+          <router-link :to="'/edit/' + item.id" class="btn">
+            <span class="text-warning">
+              <i class="bi bi-pencil-square"></i>
+            </span>
+          </router-link>
+          <button type="button" class="btn" @click="removeData(item.id)">
+            <span class="text-danger">
+              <i class="bi bi-trash3"></i>
+            </span>
           </button>
         </td>
       </tr>

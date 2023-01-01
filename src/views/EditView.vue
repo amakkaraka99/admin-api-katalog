@@ -1,9 +1,12 @@
 <script setup>
-import { reactive } from "vue";
+import { reactive, onMounted, ref } from "vue";
 import axios from "axios";
-import { useRouter } from "vue-router";
-import FormCreate from "../components/FormCreate.vue";
+import { useRouter, useRoute } from "vue-router";
+import FormEdit from "../components/FormEdit.vue";
 const router = useRouter();
+const route = useRoute();
+const id = route.params.id;
+const dataById = ref({});
 
 const state = reactive({
   title: "",
@@ -24,9 +27,28 @@ const uploadImage = async (e) => {
   };
   console.log(state.image.length);
 };
-const createData = async () => {
-  const response = await axios.post(
-    "https://api-app.herianto.xyz/api/katalogs",
+const getData = async () => {
+  const response = await axios.get(
+    `https://api-app.herianto.xyz/api/katalogs/${id}`
+  );
+  state.title = response.data.data.title;
+  state.price = response.data.data.price;
+  state.description = response.data.data.description;
+  state.category = response.data.data.category;
+  state.image = response.data.data.image;
+  state.rate = response.data.data.rate;
+  state.count = response.data.data.count;
+  state.nohp = response.data.data.nohp;
+  dataById.value = response.data.data;
+  console.log(response.data);
+};
+onMounted(() => {
+  getData();
+});
+
+const updateData = async () => {
+  const response = await axios.put(
+    `https://api-app.herianto.xyz/api/katalogs/${id}`,
     {
       title: state.title,
       price: state.price,
@@ -50,12 +72,12 @@ const createData = async () => {
           <button class="btn btn-warning text-white mt-4">
             <router-link to="/">&laquo;Back</router-link>
           </button>
-          <h2 class="text-center">Create Products</h2>
+          <h2 class="text-center">Update Products</h2>
           <div class="card p-5 mt-3 rouded shadow">
-            <FormCreate
+            <FormEdit
               :state="state"
               :uploadImage="uploadImage"
-              :createData="createData"
+              :updateData="updateData"
             />
           </div>
         </div>

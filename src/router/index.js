@@ -28,12 +28,22 @@ const router = createRouter({
           name: "create",
           component: () => import("../views/CreateView.vue"),
         },
+        {
+          path: "/edit/:id",
+          name: "edit",
+          component: () => import("../views/EditView.vue"),
+        },
       ],
     },
     {
       path: "/login",
       name: "login",
       component: () => import("../views/LoginView.vue"),
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "not-found",
+      component: () => import("../views/NotFoundView.vue"),
     },
   ],
 });
