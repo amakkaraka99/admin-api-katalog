@@ -26,7 +26,7 @@ const uploadImage = async (e) => {
 };
 const createData = async () => {
   const response = await axios.post(
-    "https://api-app.herianto.xyz/api/katalogs",
+    "https://api-app.sman9luwuutara.sch.id/api/katalogs",
     {
       title: state.title,
       price: state.price,

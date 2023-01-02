@@ -6,14 +6,16 @@ import TableHome from "../components/TableHome.vue";
 const data = ref([]);
 
 const getData = async () => {
-  const response = await axios.get("https://api-app.herianto.xyz/api/katalogs");
+  const response = await axios.get(
+    "https://api-app.sman9luwuutara.sch.id/api/katalogs"
+  );
   data.value = response.data.data;
 };
 onMounted(() => getData());
 const removeData = async (id) => {
   if (confirm("Are you sure?")) {
     const response = await axios.delete(
-      `https://api-app.herianto.xyz/api/katalogs/${id}`
+      `https://api-app.sman9luwuutara.sch.id/api/katalogs/${id}`
     );
     console.log(response);
     getData();

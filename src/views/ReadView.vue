@@ -18,7 +18,7 @@ const state = reactive({
 });
 const getData = async () => {
   const response = await axios.get(
-    `https://api-app.herianto.xyz/api/katalogs/${id.value}`
+    `https://api-app.sman9luwuutara.sch.id/api/katalogs/${id.value}`
   );
   state.title = response.data.data.title;
   state.price = response.data.data.price;

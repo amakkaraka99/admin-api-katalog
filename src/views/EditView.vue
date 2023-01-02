@@ -29,7 +29,7 @@ const uploadImage = async (e) => {
 };
 const getData = async () => {
   const response = await axios.get(
-    `https://api-app.herianto.xyz/api/katalogs/${id}`
+    `https://api-app.sman9luwuutara.sch.id/api/katalogs/${id}`
   );
   state.title = response.data.data.title;
   state.price = response.data.data.price;
@@ -48,7 +48,7 @@ onMounted(() => {
 
 const updateData = async () => {
   const response = await axios.put(
-    `https://api-app.herianto.xyz/api/katalogs/${id}`,
+    `https://api-app.sman9luwuutara.sch.id/api/katalogs/${id}`,
     {
       title: state.title,
       price: state.price,
