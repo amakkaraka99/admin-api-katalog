@@ -27,9 +27,11 @@
         <td>{{ item.nohp }}</td>
         <td>
           <button class="btn">
-            <span>
-              <i class="bi bi-eye"></i>
-            </span>
+            <router-link :to="'/read/' + item.id" class="btn">
+              <span class="text-success">
+                <i class="bi bi-eye"></i>
+              </span>
+            </router-link>
           </button>
           <router-link :to="'/edit/' + item.id" class="btn">
             <span class="text-warning">
@@ -60,6 +62,8 @@
   </table>
 </template>
 <script setup>
+import router from "../router";
+
 defineProps(["data", "removeData"]);
 </script>
 <style scoped>

@@ -33,6 +33,11 @@ const router = createRouter({
           name: "edit",
           component: () => import("../views/EditView.vue"),
         },
+        {
+          path: "/read/:id",
+          name: "read",
+          component: () => import("../views/ReadView.vue"),
+        },
       ],
     },
     {
