@@ -20,7 +20,7 @@
           <RouterLink class="nav-link active" aria-current="page" to="/"
             >Home</RouterLink
           >
-          <a class="nav-link" href="#">About</a>
+          <RouterLink class="nav-link" to="/about">About</RouterLink>
           <!-- <a class="nav-link" href="#"></a> -->
           <li class="nav-item dropdown">
             <a
@@ -33,17 +33,14 @@
             >
               {{ user?.email }}
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <ul
+              class="dropdown-menu text-center p-5"
+              aria-labelledby="navbarDropdownMenuLink"
+            >
               <li><a class="dropdown-item" href="#">Profil</a></li>
-              <li>
-                <button
-                  class="dropdown-item btn btn-danger btn-sm"
-                  href="#"
-                  @click="logout"
-                >
-                  LogOut
-                </button>
-              </li>
+              <button class="btn btn-danger btn-sm mt-3" @click="logout">
+                LogOut
+              </button>
             </ul>
           </li>
         </div>
