@@ -25,7 +25,7 @@
         <td>{{ item.rate }}</td>
         <td>{{ item.count }}</td>
         <td>{{ item.nohp }}</td>
-        <td>
+        <td class="btn-group">
           <button class="btn">
             <router-link :to="'/read/' + item.id" class="btn">
               <span class="text-success">

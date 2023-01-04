@@ -1,6 +1,6 @@
 <script setup>
 import axios from "axios";
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, onBeforeMount } from "vue";
 import TableHome from "../components/TableHome.vue";
 
 const data = ref([]);
@@ -11,7 +11,7 @@ const getData = async () => {
   );
   data.value = response.data.data;
 };
-onMounted(() => getData());
+onBeforeMount(() => getData());
 const removeData = async (id) => {
   if (confirm("Are you sure?")) {
     const response = await axios.delete(
@@ -21,18 +21,37 @@ const removeData = async (id) => {
     getData();
   }
 };
+
+onMounted(() => {
+  console.log(searchData.value.length);
+  console.log(data.value.length);
+  console.log(paginateData.value.length);
+  console.log(totalPage.value.length);
+});
 const page = ref(1);
-const perPage = ref(5);
+const perPage = ref(3);
 const total = ref(0);
 
 const paginateData = computed(() => {
   const start = (page.value - 1) * perPage.value;
   const end = start + perPage.value;
-  return data.value.slice(start, end);
+
+  // if (searchData.value.length > 0) {
+  return searchData.value.slice(start, end);
+  // } else {
+  //   return data.value.slice(start, end);
+  // }
+
+  // searchData.value.slice(start, end);
 });
 
 const totalPage = computed(() => {
-  return Math.ceil(data.value.length / perPage.value);
+  if (search.value) {
+    return Math.ceil(searchData.value.length / perPage.value);
+  } else {
+    return Math.ceil(data.value.length / perPage.value);
+  }
+  // Math.ceil(searchData.value.length / perPage.value);
 });
 const nextPage = () => {
   if (page.value < totalPage.value) {
@@ -47,15 +66,29 @@ const prevPage = () => {
 const changePage = (item) => {
   page.value = item;
 };
+const search = ref("");
+const searchData = computed(() => {
+  return data.value.filter((item) => {
+    return item.title.toLowerCase().includes(search.value.toLowerCase());
+  });
+});
 </script>
 
 <template>
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-12">
-        <router-link to="/create" class="btn btn-primary mb-3 mt-3"
-          >Create</router-link
-        >
+        <div class="d-flex mt-5">
+          <router-link to="/create" class="btn btn-primary mb-3 mt-3"
+            >Create</router-link
+          >
+          <input
+            type="search"
+            class="mb-3 mt-3 ms-2"
+            placeholder="Search"
+            v-model="search"
+          />
+        </div>
         <div class="table-responsive text-center">
           <TableHome :data="paginateData" :removeData="removeData" />
           <div class="text-center">
