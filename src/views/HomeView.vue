@@ -91,22 +91,22 @@ const searchData = computed(() => {
         </div>
         <div class="table-responsive text-center">
           <TableHome :data="paginateData" :removeData="removeData" />
-          <div class="text-center">
-            <button @click="prevPage" class="btn btn-outline-dark btn-sm me-1">
-              &laquo;
-            </button>
-            <button
-              v-for="item in totalPage"
-              :key="item"
-              @click="changePage(item)"
-              class="btn btn-outline-dark mx-1 btn-sm"
-            >
-              {{ item }}
-            </button>
-            <button @click="nextPage" class="btn btn-outline-dark btn-sm ms-1">
-              &raquo;
-            </button>
-          </div>
+        </div>
+        <div class="text-center">
+          <button @click="prevPage" class="btn btn-outline-dark btn-sm me-1">
+            &laquo;
+          </button>
+          <button
+            v-for="item in totalPage"
+            :key="item"
+            @click="changePage(item)"
+            class="btn btn-outline-dark mx-1 btn-sm"
+          >
+            {{ item }}
+          </button>
+          <button @click="nextPage" class="btn btn-outline-dark btn-sm ms-1">
+            &raquo;
+          </button>
         </div>
       </div>
     </div>
